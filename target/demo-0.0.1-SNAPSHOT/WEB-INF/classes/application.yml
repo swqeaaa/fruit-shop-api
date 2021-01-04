@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: 123456
+#    url: jdbc:oracle:thin:@localhost:1521:ORCL
+    url: jdbc:mysql://localhost:3306/myblog?useUnicide=true&characterEncoding=utf-8&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+#    driver-class-name: oracle.jdbc.OracleDriver
+
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.example.entity
+
+#showSql
+logging:
+  level:
+    com:
+      example:
+        mapper : debug
+
+
+
+
+file:
+  store:
+#    path : E:\\projectFiles\\market
+    path : /home/projectFiles/market
+#    path : \file\\resources
+
+
+# because the front has to run on rmr, url should be my IP
+# if run the front on my computer, use:
+#myhost : http://localhost:8080
+#myhost: http://192.168.123.175:8080
+myhost: http://101.37.81.104:8080
+
+

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uzi.mapper.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.uzi.model.Goods" >
+    <id column="GOODSID" property="goodsid" jdbcType="NUMERIC" />
+    <result column="GOODSNAME" property="goodsname" jdbcType="VARCHAR" />
+    <result column="GOODSIMG" property="goodsimg" jdbcType="VARCHAR" />
+    <result column="GOODSPRICE" property="goodsprice" jdbcType="NUMERIC" />
+    <result column="GOODSINFO" property="goodsinfo" jdbcType="VARCHAR" />
+    <result column="GOODSNUM" property="goodsnum" jdbcType="NUMERIC" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    GOODSID, GOODSNAME, GOODSIMG, GOODSPRICE, GOODSINFO, GOODSNUM
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uzi.model.GoodsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from GOODS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from GOODS
+    where GOODSID = #{goodsid,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from GOODS
+    where GOODSID = #{goodsid,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uzi.model.GoodsExample" >
+    delete from GOODS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uzi.model.Goods" >
+    insert into GOODS (GOODSID, GOODSNAME, GOODSIMG, 
+      GOODSPRICE, GOODSINFO, GOODSNUM
+      )
+    values (#{goodsid,jdbcType=NUMERIC}, #{goodsname,jdbcType=VARCHAR}, #{goodsimg,jdbcType=VARCHAR}, 
+      #{goodsprice,jdbcType=NUMERIC}, #{goodsinfo,jdbcType=VARCHAR}, #{goodsnum,jdbcType=NUMERIC}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.uzi.model.Goods" >
+    insert into GOODS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        GOODSID,
+      </if>
+      <if test="goodsname != null" >
+        GOODSNAME,
+      </if>
+      <if test="goodsimg != null" >
+        GOODSIMG,
+      </if>
+      <if test="goodsprice != null" >
+        GOODSPRICE,
+      </if>
+      <if test="goodsinfo != null" >
+        GOODSINFO,
+      </if>
+      <if test="goodsnum != null" >
+        GOODSNUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=NUMERIC},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsimg != null" >
+        #{goodsimg,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsprice != null" >
+        #{goodsprice,jdbcType=NUMERIC},
+      </if>
+      <if test="goodsinfo != null" >
+        #{goodsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsnum != null" >
+        #{goodsnum,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uzi.model.GoodsExample" resultType="java.lang.Integer" >
+    select count(*) from GOODS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update GOODS
+    <set >
+      <if test="record.goodsid != null" >
+        GOODSID = #{record.goodsid,jdbcType=NUMERIC},
+      </if>
+      <if test="record.goodsname != null" >
+        GOODSNAME = #{record.goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsimg != null" >
+        GOODSIMG = #{record.goodsimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsprice != null" >
+        GOODSPRICE = #{record.goodsprice,jdbcType=NUMERIC},
+      </if>
+      <if test="record.goodsinfo != null" >
+        GOODSINFO = #{record.goodsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsnum != null" >
+        GOODSNUM = #{record.goodsnum,jdbcType=NUMERIC},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update GOODS
+    set GOODSID = #{record.goodsid,jdbcType=NUMERIC},
+      GOODSNAME = #{record.goodsname,jdbcType=VARCHAR},
+      GOODSIMG = #{record.goodsimg,jdbcType=VARCHAR},
+      GOODSPRICE = #{record.goodsprice,jdbcType=NUMERIC},
+      GOODSINFO = #{record.goodsinfo,jdbcType=VARCHAR},
+      GOODSNUM = #{record.goodsnum,jdbcType=NUMERIC}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uzi.model.Goods" >
+    update GOODS
+    <set >
+      <if test="goodsname != null" >
+        GOODSNAME = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsimg != null" >
+        GOODSIMG = #{goodsimg,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsprice != null" >
+        GOODSPRICE = #{goodsprice,jdbcType=NUMERIC},
+      </if>
+      <if test="goodsinfo != null" >
+        GOODSINFO = #{goodsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsnum != null" >
+        GOODSNUM = #{goodsnum,jdbcType=NUMERIC},
+      </if>
+    </set>
+    where GOODSID = #{goodsid,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uzi.model.Goods" >
+    update GOODS
+    set GOODSNAME = #{goodsname,jdbcType=VARCHAR},
+      GOODSIMG = #{goodsimg,jdbcType=VARCHAR},
+      GOODSPRICE = #{goodsprice,jdbcType=NUMERIC},
+      GOODSINFO = #{goodsinfo,jdbcType=VARCHAR},
+      GOODSNUM = #{goodsnum,jdbcType=NUMERIC}
+    where GOODSID = #{goodsid,jdbcType=NUMERIC}
+  </update>
+</mapper>
